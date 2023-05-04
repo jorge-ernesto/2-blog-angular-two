@@ -1,0 +1,29 @@
+<div *ngIf="identity && identity.sub">
+
+	<div *ngIf="barra_navegacion; then contenido_barra_navegacion else contenido_pastillas"></div>
+
+	<ng-template #contenido_barra_navegacion>
+		<!--
+		Barra de navegacion: https://getbootstrap.com/docs/4.6/components/navbar/
+		-->
+		<ul class="navbar-nav">
+			<li class="nav-item" *ngFor="let category of categories">
+				<a class="nav-link" routerLinkActive="active" [routerLink]="['/category/posts', category.id]">{{category.name}}</a>
+			</li>
+		</ul>
+	</ng-template>
+
+	<ng-template #contenido_pastillas>
+		<!--
+		Navegadores: https://getbootstrap.com/docs/4.6/components/navs/#pills
+		-->
+		<ul class="nav nav-pills">
+			<li class="nav-item" *ngFor="let category of categories">
+				<a class="nav-link" routerLinkActive="active" [routerLink]="['/category/posts', category.id]">{{category.name}}</a>
+			</li>
+		</ul>
+		<hr>
+	</ng-template>
+
+</div>
+

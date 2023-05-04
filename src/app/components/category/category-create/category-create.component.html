@@ -1,0 +1,45 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+    <p *ngIf="!is_edit">        
+        Añade un nuevo categoria
+    </p>  
+    <p *ngIf="is_edit">
+        Modifica la categoria {{category.name}}
+    </p>
+
+    <!-- ALERTAS -->
+    <div class="alert alert-success" *ngIf="status == 'success'">
+        La categoria se creo correctamente
+    </div>
+    <div class="alert alert-danger" *ngIf="status == 'error'">
+        Los datos no se han guardado
+    </div>
+    
+    <!-- FORMULARIO PARA CREAR CATEGORIAS -->
+    <form class="col-md-5 ml-0 pl-0" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="category.name" 
+            required pattern="[a-z A-Z 0-9]+">
+            
+            <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+                El nombre no es valido
+            </small>
+        </div>
+
+        <!-- {{ date_publication | date:'dd/MM/yyyy' }} -->
+
+        <div class="form-group">
+            <label for="name">Fecha</label>
+            <input type="date" name="date_publication" class="form-control" #date_publication="ngModel" [(ngModel)]="category.date_publication" 
+            required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">               
+
+            <small *ngIf="!date_publication.valid && date_publication.touched" class="invalid-feedback d-block">
+                La fecha no es valida
+            </small>
+        </div>
+
+        <input type="submit" value="Guardar" class="btn btn-success" [disabled]="categoryForm.invalid">
+        <button class="btn btn-secondary ml-2" [routerLink]="['/category']">Atras</button>
+    </form>
+</div>
