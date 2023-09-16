@@ -1,0 +1,69 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+    <p *ngIf="!is_edit">
+        Añade un nuevo post
+    </p>
+    <p *ngIf="is_edit">
+        Modifica el post <b>{{post.title}}</b>
+    </p>
+
+    <!-- ALERTAS -->
+    <div class="alert alert-success" *ngIf="status == 'success'">
+        Los datos se han guardado correctamente
+    </div>
+    <div class="alert alert-danger" *ngIf="status == 'error'">
+        Los datos no se han guardado
+    </div>
+
+     <!-- FORMULARIO DE ENTRADAS -->
+    <form class="col-md-5 ml-0 pl-0" #postNewForm="ngForm" (ngSubmit)="onSubmit(postNewForm)" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Titulo</label>
+            <input type="text" name="title" class="form-control" #title="ngModel" [(ngModel)]="post.title"
+            required> <!-- pattern="[a-z A-Z 0-9]+" -->
+
+            <small *ngIf="!title.valid && title.touched" class="invalid-feedback d-block">
+                El titulo no es valido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Contenido</label>
+            <div [froalaEditor]="froala_options" [(froalaModel)]="post.content"></div>
+            <input type="hidden" name="content" class="form-control" #content="ngModel" [(ngModel)]="post.content"
+            required>
+
+            <small *ngIf="!content.valid" class="invalid-feedback d-block">
+                El contenido no es valido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="title">Categoria</label>
+            <select name="category_id" class="form-control" #category_id="ngModel" [(ngModel)]="post.category_id">
+                <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Imagen</label>
+            <!-- <p>{{url + 'post/image/' + post.image}}</p> -->
+
+            <!-- IMAGEN DEL POST EN LA EDICION -->
+            <div *ngIf='post.image'>
+                <img src="{{url + 'post/image/' + post.image}}" class="avatar_edit" alt="">
+            </div>
+
+            <br />
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" name="image" class="custom-file-input" id="customFile" lang="es" (change)="imageUpload($event)">
+                    <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" value="Guardar" class="btn btn-success" [disabled]="postNewForm.invalid">
+        <button class="btn btn-secondary ml-2" [routerLink]="['/home']">Atras</button>
+    </form>
+</div>

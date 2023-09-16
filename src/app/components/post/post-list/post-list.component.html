@@ -1,0 +1,63 @@
+<div class="card-columns">
+	<!-- RECORREMOS POSTS -->
+	<div class="card w-100" *ngFor="let post of posts">
+
+		<div class="card-header">
+			<h3>
+				<a [routerLink]="['/post', post.id]">{{post.title}}</a>
+			</h3>
+		</div>
+
+		<div class="card-body">
+			<!-- Imagen -->
+			<div class="post-image-mask w-100" *ngIf="post.image">
+				<img src="{{ url + 'post/image/' + post.image }}" class="w-100" alt="">
+			</div>
+
+			<div class="post-image-mask w-100" *ngIf="!post.image">
+				<img src="https://via.placeholder.com/1200" class="w-100" alt="">
+			</div>
+			<!-- Cerrar Imagen -->
+
+			<!-- Botones Leer, Editar y Borrar -->
+			<div class="post-buttons mt-3">
+				<a [routerLink]="['/post', post.id]" class="btn btn-success mr-2">Leer</a>
+
+				<span *ngIf="identity && identity.sub == post.user.id">
+					<a [routerLink]="['/post', post.id, 'edit']" class="btn btn-warning mr-2">Editar</a>
+
+					<!-- Boton para mostrar modal -->
+					<button type="button" class="btn btn-danger" data-toggle="modal" [attr.data-target]="'#exampleModal'+post.id"> <!-- data-target="#exampleModal{{post.id}}" --> <!-- Se uso attr.data-target de Angular 10 para que funcione la llamada a los modals -->
+						Borrar
+					</button>
+					<!-- Cerrar Boton para mostrar modal -->
+
+					<!-- Modal para eliminar post -->
+					<div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres borrar esta entrada?</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								Vas a borrar definitivamente {{post.title}}
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deletePost(post.id)">Borrar</button> <!-- Se le agrego el data-dismiss en el enlace para borrar ya que sin ello se queda el background del modal -->
+							</div>
+						</div>
+						</div>
+					</div>
+					<!-- Cerrar Modal para eliminar post -->
+
+				</span>
+			</div>
+			<!-- Cerrar Botones Leer, Editar y Borrar -->
+		</div>
+
+	</div>
+</div>
