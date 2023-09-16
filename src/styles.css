@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+
+.avatar_edit {
+	width: 400px;
+}
+
+.avatar_detail {
+	width: 1000px;
+}
+
+.avatar_mask {
+	width: 50px;
+	height: 50px;
+	border-radius: 900px;
+	overflow: hidden;
+}
+
+.avatar_mask img {
+	width: 50px;
+}
+
+.avatar_mask_profile {
+	width: 90px;
+	height: 90px;
+	border-radius: 900px;
+	overflow: hidden;
+}
+
+.avatar_mask_profile img {
+	width: 90px;
+}
+
+/* Significa que tendra un alto maximo de 200px y todo lo que se salga de ahi se ocultara, lo comentamos ya que los cards se ven muy bien sin la restriccion de altura */
+/* .post-image-mask {
+	height: 200px;
+	overflow: hidden;
+} */
+
+footer {
+	color: lightgray;
+	margin-top: 50px;
+}
+
+/* Copiado de sistemaweb-laravel-mysql */
+.custom-file-input:lang(en)~.custom-file-label::after {
+    content: "Browse";
+}
+
+.custom-file-input:lang(es)~.custom-file-label::after {
+    content: "Elegir";
+}
